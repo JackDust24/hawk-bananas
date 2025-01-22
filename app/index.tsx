@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUsers } from '@/redux/actions';
+import { RootState } from '@/redux/store';
 import { SearchBar } from '@/components/SearchBar';
 import { UserInfo } from '@/types/userTypes';
 import { UserList } from '@/components/UserList';
 import { SortOptions } from '@/components/SortOptions';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
-
-// Mock placeholder data:
-const tempUser = 'John Doe';
-const topUsers: UserInfo[] = [
-  { rank: 1, name: 'Jack Doe', bananas: 100 },
-  { rank: 2, name: 'July Doe', bananas: 90 },
-  { rank: 3, name: 'Jane', bananas: 80 },
-  { rank: 4, name: 'Martin', bananas: 70 },
-  { rank: 5, name: 'Colin', bananas: 60 },
-];
+import { fetchData } from '@/helpers/fetchData';
 
 function HomeScreen() {
+  // const dispatch = useDispatch();
+  const users = useSelector((state: RootState) => state.app.users || []);
+
+  // useEffect(() => {
+  //   const users = fetchData();
+
+  //   dispatch(setUsers(users));
+  // }, [dispatch]);
+
   return (
     <Layout style={{ flex: 1, padding: 16 }}>
       <SearchBar />
       <SortOptions />
-      <UserList users={topUsers} highlightedUser={tempUser} />
+      <UserList users={users} highlightedUser={null} />
     </Layout>
   );
 }

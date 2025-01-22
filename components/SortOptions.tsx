@@ -14,6 +14,7 @@ export const SortOptions: React.FC = () => {
     undefined
   );
 
+  // TO be implemented
   const handleSelect = (index: IndexPath | IndexPath[]) => {
     if (Array.isArray(index)) {
       return;

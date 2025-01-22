@@ -4,16 +4,18 @@ import { UserInfo } from '@/types/userTypes';
 import { View } from 'react-native';
 
 type UserListProps = {
-  users: UserInfo[];
-  highlightedUser?: string;
+  users: UserInfo[] | [];
+  highlightedUser?: string | null;
 };
 
 export function UserList({ users, highlightedUser }: UserListProps) {
+  if (!users) {
+    return null;
+  }
   const renderItem = ({ item }: { item: (typeof users)[0] }) => (
     <ListItem
       style={{
-        backgroundColor:
-          item.name === highlightedUser ? '#D3F8E2' : 'transparent',
+        backgroundColor: item.match ? '#f9c2ff' : 'transparent',
       }}
     >
       <View style={{ flex: 3 }}>
