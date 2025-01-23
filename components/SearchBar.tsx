@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ImageProps } from 'react-native';
+import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Input, Button, Layout, IconElement } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
@@ -16,7 +16,6 @@ export function SearchBar() {
 
   const handleSearch = () => {
     if (searchName.trim() === '') {
-      // Clear results if search is empty
       dispatch(setUsers([]));
       return;
     }
@@ -36,6 +35,8 @@ export function SearchBar() {
       dispatch(setSearchedUser(matchedUser));
     }
     dispatch(setUsers(users));
+
+    Keyboard.dismiss();
   };
 
   const handleSearchText = (text: string) => {
@@ -57,23 +58,25 @@ export function SearchBar() {
   }, [searchedUser]);
 
   return (
-    <Layout
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 16,
-      }}
-    >
-      <Input
-        placeholder='Enter username'
-        value={searchName}
-        onChangeText={handleSearchText}
-        style={{ flex: 1, marginRight: 8 }}
-        accessoryLeft={() => <Icon name='search' size={20} color='#000' />}
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <Layout
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
+        <Input
+          placeholder='Enter username'
+          value={searchName}
+          onChangeText={handleSearchText}
+          style={{ flex: 1, marginRight: 8 }}
+          accessoryLeft={() => <Icon name='search' size={20} color='#000' />}
+        />
 
-      <Button onPress={handleSearch}>Search</Button>
-    </Layout>
+        <Button onPress={handleSearch}>Search</Button>
+      </Layout>
+    </TouchableWithoutFeedback>
   );
 }
