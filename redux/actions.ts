@@ -1,8 +1,10 @@
-import { UserInfo } from '@/types/userTypes';
+import { SortOrder, UserInfo } from '@/types/userTypes';
 
 export const SET_USERS = 'SET_USERS';
-export const SET_TOP_TEN = 'SET_TOP_TEN';
+export const SET_SORT_ORDER = 'SET_SORT_ORDER';
+export const SET_SHOW_LOWEST = 'SET_SHOW_LOWEST';
 export const SET_SEARCHED_USER = 'SET_SEARCHED_USER';
+
 export const SET_ERROR = 'SET_ERROR';
 
 export type SetUsersAction = {
@@ -10,12 +12,17 @@ export type SetUsersAction = {
   payload: UserInfo[];
 };
 
-export type SetTopTenAction = {
-  type: typeof SET_TOP_TEN;
-  payload: UserInfo[];
+export type SetSortOrder = {
+  type: typeof SET_SORT_ORDER;
+  payload: SortOrder;
 };
 
-export type SetSearchedUserAction = {
+export type SetShowLowest = {
+  type: typeof SET_SHOW_LOWEST;
+  payload: boolean;
+};
+
+export type SetSearchedUser = {
   type: typeof SET_SEARCHED_USER;
   payload: UserInfo | null;
 };
@@ -27,8 +34,9 @@ export type SetErrorAction = {
 
 export type AppActions =
   | SetUsersAction
-  | SetTopTenAction
-  | SetSearchedUserAction
+  | SetSortOrder
+  | SetShowLowest
+  | SetSearchedUser
   | SetErrorAction;
 
 export const setUsers = (users: UserInfo[]): SetUsersAction => ({
@@ -36,16 +44,21 @@ export const setUsers = (users: UserInfo[]): SetUsersAction => ({
   payload: users,
 });
 
-export const setTopTen = (topTen: UserInfo[]): SetTopTenAction => ({
-  type: SET_TOP_TEN,
-  payload: topTen,
+export const setSortOrder = (sortOrder: SortOrder): SetSortOrder => ({
+  type: SET_SORT_ORDER,
+  payload: sortOrder,
+});
+
+export const setShowLowest = (showLowest: boolean): SetShowLowest => ({
+  type: SET_SHOW_LOWEST,
+  payload: showLowest,
 });
 
 export const setSearchedUser = (
-  user: UserInfo | null
-): SetSearchedUserAction => ({
+  searchedUser: UserInfo | null
+): SetSearchedUser => ({
   type: SET_SEARCHED_USER,
-  payload: user,
+  payload: searchedUser,
 });
 
 export const setError = (message: string): SetErrorAction => ({

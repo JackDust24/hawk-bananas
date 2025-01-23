@@ -1,22 +1,40 @@
 import sampleData from '@/data/leaderboard.json';
 import { UserInfo } from '@/types/userTypes';
 
-function transformedData() {
-  return Object.entries(sampleData)
-    .map(([id, data]: [string, any]) => ({
-      id,
-      name: data.name,
-      bananas: data.bananas,
-      rank: 0,
-      match: false,
-    }))
-    .sort((a, b) => {
-      if (b.bananas === a.bananas) {
-        return a.name.localeCompare(b.name);
-      }
-      return b.bananas - a.bananas;
-    })
-    .map((user, index) => ({ ...user, rank: index + 1 }));
+function transformedData(showHighestRank = true): UserInfo[] {
+  let currentRank = 0;
+  let previousBananas: number | null = null;
+
+  return (
+    Object.entries(sampleData)
+      .map(([id, data]: [string, any]) => ({
+        id,
+        name: data.name,
+        bananas: data.bananas,
+        rank: 0,
+        match: false,
+      }))
+      // Filter out empty names and names and non ascii characters
+      .filter(
+        (user) => user.name.trim() !== '' && /^[\x00-\x7F]*$/.test(user.name)
+      )
+
+      .sort((a, b) => {
+        if (b.bananas === a.bananas) {
+          return showHighestRank
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name);
+        }
+        return b.bananas - a.bananas;
+      })
+      .map((user, index) => {
+        if (user.bananas !== previousBananas) {
+          currentRank = index + 1;
+          previousBananas = user.bananas;
+        }
+        return { ...user, rank: currentRank };
+      })
+  );
 }
 
 export const fetchData = (searchName: string): UserInfo[] | [] => {
@@ -48,7 +66,7 @@ export const fetchData = (searchName: string): UserInfo[] | [] => {
   }
 };
 
-export const fuzzySearchData = (searchName: string): UserInfo[] | [] => {
+export const fetchFuzzySearch = (searchName: string): UserInfo[] | [] => {
   const sortedData = transformedData();
 
   const matchedUsers = sortedData.filter((user) =>
@@ -61,6 +79,10 @@ export const fuzzySearchData = (searchName: string): UserInfo[] | [] => {
 
   return matchedUsers.slice(0, 10).map((user) => ({
     ...user,
-    match: true,
+    match: false,
   }));
+};
+
+export const fetchLowestRank = (): UserInfo[] | [] => {
+  return transformedData(false).reverse();
 };

@@ -8,7 +8,10 @@ export type UserInfo = {
 
 export type AppState = {
   users: UserInfo[];
-  topTen: UserInfo[] | null;
+  sortOrder: SortOrder;
+  showLowest: boolean;
   searchedUser: UserInfo | null;
   error: string | null;
 };
+
+export type SortOrder = 'name' | 'rank';

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, ImageProps } from 'react-native';
 import { Input, Button, Layout, IconElement } from '@ui-kitten/components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
-import { setUsers } from '@/redux/actions';
-import { fetchData, fuzzySearchData } from '@/helpers/fetchData';
+import { setSearchedUser, setUsers } from '@/redux/actions';
+import { fetchData, fetchFuzzySearch } from '@/helpers/fetchData';
+import { RootState } from '@/redux/store';
 
 export function SearchBar() {
   const [searchName, setSearchName] = useState('');
-
   const dispatch = useDispatch();
+  const searchedUser = useSelector(
+    (state: RootState) => state.app.searchedUser
+  );
 
   const handleSearch = () => {
     if (searchName.trim() === '') {
@@ -28,7 +31,10 @@ export function SearchBar() {
         );
       }, 0);
     }
-
+    const matchedUser = users.find((user) => user.match);
+    if (matchedUser) {
+      dispatch(setSearchedUser(matchedUser));
+    }
     dispatch(setUsers(users));
   };
 
@@ -39,10 +45,16 @@ export function SearchBar() {
       return;
     }
 
-    const users = fuzzySearchData(text);
+    const users = fetchFuzzySearch(text);
 
     dispatch(setUsers(users));
   };
+
+  useEffect(() => {
+    if (!searchedUser) {
+      setSearchName('');
+    }
+  }, [searchedUser]);
 
   return (
     <Layout

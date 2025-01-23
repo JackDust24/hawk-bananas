@@ -39,9 +39,8 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen
             name='index'
-            options={{ title: 'Search Screen', headerShown: true }}
+            options={{ title: 'Banana Lovers', headerShown: true }}
           />
-          {/* <Stack.Screen name='+not-found' /> */}
         </Stack>
         <StatusBar style='auto' />
       </ThemeProvider>
