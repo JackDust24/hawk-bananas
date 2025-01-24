@@ -38,9 +38,9 @@ This is just a basic application and is only for show on how to search names, do
    ```bash
    cd bananas
    ```
-3. Clone the repository:
-   ```bash
-  npm install
+3. Install the depenencies:
+    ```bash
+   npm install
    ```
 
 ## **Usage**
@@ -56,7 +56,7 @@ Folder Strucutre:
    ```bash
 
 src/
-├── appp/               # Layout and index home page
+├── app/               # Layout and index home page
 ├── components/         # Reusable UI components (e.g., SearchBar, UserList)
 ├── data/               # Static JSON data (e.g., leaderboard.json)
 ├── helpers/            # Helper functions (e.g., fetchData)
