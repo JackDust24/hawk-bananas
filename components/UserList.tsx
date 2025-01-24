@@ -47,13 +47,13 @@ export function UserList({ users, highlightedUser }: UserListProps) {
   return (
     <View>
       <Layout style={styles.headerRow}>
-        <Text style={[styles.cell, styles.name, { textAlign: 'center' }]}>
+        <Text style={[styles.cell, styles.name, { textAlign: 'left' }]}>
           Name
         </Text>
-        <Text style={[styles.cell, styles.rank, { textAlign: 'center' }]}>
+        <Text style={[styles.cell, styles.rank, { textAlign: 'left' }]}>
           Rank
         </Text>
-        <Text style={[styles.cell, styles.bananas, { textAlign: 'center' }]}>
+        <Text style={[styles.cell, styles.bananas, { textAlign: 'left' }]}>
           Bananas
         </Text>
       </Layout>
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   cell: {
     flexDirection: 'column',
     justifyContent: 'center',
-    height: '100%',
   },
   name: {
     flex: 3,

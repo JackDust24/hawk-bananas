@@ -4,6 +4,7 @@ This project is a React Native application that enables you to search for people
 
 This is just a basic application and is only for show on how to search names, do fuzzy search and sort.
 
+![screenshot](assets/images/Screenshot.PNG)
 ---
 
 ## **Features**

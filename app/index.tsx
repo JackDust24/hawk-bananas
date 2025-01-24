@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUsers } from '@/redux/actions';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { setShowLowest, setUsers } from '@/redux/actions';
 import { RootState } from '@/redux/store';
 import { SearchBar } from '@/components/SearchBar';
-import { UserInfo } from '@/types/userTypes';
 import { UserList } from '@/components/UserList';
 import { SortBar } from '@/components/SortOptions';
 import * as eva from '@eva-design/eva';
@@ -33,36 +33,39 @@ function HomeScreen() {
       const lowestRankUsers = fetchLowestRank();
       const sortedUsers = lowestRankUsers.slice(0, 10);
       dispatch(setUsers(sortedUsers));
+      dispatch(setShowLowest(false));
     }
   }, [showLowest]);
 
   return (
-    <Layout
-      style={{
-        flex: 1,
-        paddingHorizontal: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Layout style={{ width: '100%', marginBottom: 20 }}>
-        <SearchBar />
-      </Layout>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <Layout
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          width: '100%',
-          gap: 20,
-          marginBottom: 20,
+          flex: 1,
+          paddingHorizontal: 16,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <SortBar />
+        <Layout style={{ width: '100%', marginBottom: 20 }}>
+          <SearchBar />
+        </Layout>
+        <Layout
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            width: '100%',
+            gap: 20,
+            marginBottom: 20,
+          }}
+        >
+          <SortBar />
+        </Layout>
+        <Layout style={{ width: '100%' }}>
+          <UserList users={users} highlightedUser={null} />
+        </Layout>
       </Layout>
-      <Layout style={{ width: '100%' }}>
-        <UserList users={users} highlightedUser={null} />
-      </Layout>
-    </Layout>
+    </TouchableWithoutFeedback>
   );
 }
 

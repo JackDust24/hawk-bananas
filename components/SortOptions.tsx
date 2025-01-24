@@ -8,7 +8,12 @@ import {
 } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
 import { SortOrder } from '@/types/userTypes';
-import { setSearchedUser, setShowLowest, setSortOrder } from '@/redux/actions';
+import {
+  setSearchedUser,
+  setShowLowest,
+  setSortOrder,
+  setUsers,
+} from '@/redux/actions';
 
 export function SortBar() {
   const dispatch = useDispatch();
@@ -28,6 +33,7 @@ export function SortBar() {
   };
 
   const handleShowLowest = () => {
+    dispatch(setUsers([]));
     dispatch(setSearchedUser(null));
     dispatch(setShowLowest(true));
   };
