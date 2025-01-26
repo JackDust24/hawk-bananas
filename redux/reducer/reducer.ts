@@ -1,13 +1,13 @@
-import { AppState, UserInfo } from '@/types/userTypes';
+import { UserInfoState, UserInfo } from '@/types/userTypes';
 import {
   AppActions,
   SET_USERS,
   SET_SORT_ORDER,
   SET_SHOW_LOWEST,
   SET_SEARCHED_USER,
-} from './actions';
+} from '../actions/actions';
 
-const initialState: AppState = {
+const initialState: UserInfoState = {
   users: [],
   sortOrder: 'rank',
   showLowest: false,
@@ -15,7 +15,7 @@ const initialState: AppState = {
   error: null, //To be implemented
 };
 
-const reducer = (state = initialState, action: AppActions): AppState => {
+const reducer = (state = initialState, action: AppActions): UserInfoState => {
   switch (action.type) {
     case SET_USERS:
       return { ...state, users: action.payload };

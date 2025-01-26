@@ -13,7 +13,7 @@ import {
   setShowLowest,
   setSortOrder,
   setUsers,
-} from '@/redux/actions';
+} from '@/redux/actions/actions';
 
 export function SortBar() {
   const dispatch = useDispatch();

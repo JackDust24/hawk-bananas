@@ -3,7 +3,7 @@ import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Input, Button, Layout, IconElement } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
-import { setSearchedUser, setUsers } from '@/redux/actions';
+import { setSearchedUser, setUsers } from '@/redux/actions/actions';
 import { fetchData, fetchFuzzySearch } from '@/helpers/fetchData';
 import { RootState } from '@/redux/store';
 

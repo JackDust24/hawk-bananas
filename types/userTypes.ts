@@ -6,7 +6,7 @@ export type UserInfo = {
   match: boolean;
 };
 
-export type AppState = {
+export type UserInfoState = {
   users: UserInfo[];
   sortOrder: SortOrder;
   showLowest: boolean;

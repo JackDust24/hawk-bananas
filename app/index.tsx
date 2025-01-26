@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { setShowLowest, setUsers } from '@/redux/actions';
+import { setShowLowest, setUsers } from '@/redux/actions/actions';
 import { RootState } from '@/redux/store';
 import { SearchBar } from '@/components/SearchBar';
 import { UserList } from '@/components/UserList';
